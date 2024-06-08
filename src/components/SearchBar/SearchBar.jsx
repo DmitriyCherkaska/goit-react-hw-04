@@ -1,5 +1,5 @@
 import some from "./FriendList.module.css";
-import FriendListItem from "../FriendListItem/FriendListItem";
+import FriendListItem from "../Loader/Loader";
 
 // console.log("some :>>", some);
 

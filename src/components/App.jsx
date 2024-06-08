@@ -1,9 +1,7 @@
-import Profile from "./Profile/Profile";
-import FriendList from "./FriendList/FriendList";
-import TransactionHistory from "./TransactionHistory/TransactionHistory";
-import transactions from "../transactions.json";
-import userData from "../userData.json";
-import friends from "../friends.json";
+import ImageGallery from "./ImageGallery";
+import ImageCard from "./ImageCard";
+import SearchBar from "./SearchBar";
+import Loader from './Loader'
 import "./App.css";
 
 const App = () => {

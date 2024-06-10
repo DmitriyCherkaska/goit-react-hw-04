@@ -1,13 +1,12 @@
-import ImageGallery from "./ImageGallery";
-import ImageCard from "./ImageCard";
 import SearchBar from "./SearchBar";
+import ImageGallery from "./ImageGallery";
 import Loader from './Loader'
 import "./App.css";
 
 const App = () => {
   return (
     <>
-      <Profile
+      {/* <Profile
         name={userData.username}
         tag={userData.tag}
         location={userData.location}
@@ -16,7 +15,7 @@ const App = () => {
       />
       <FriendList friends={friends} />
 
-      <TransactionHistory items={transactions} />
+      <TransactionHistory items={transactions} /> */}
     </>
   );
 };

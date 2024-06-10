@@ -1,22 +1,26 @@
-import some from "./FriendList.module.css";
-import FriendListItem from "../Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
+// import some from "./FriendList.module.css";
 
-// console.log("some :>>", some);
+const SearchBar = ({ onSubmit }) => {
 
-const FriendList = ({ friends }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const notify = () => toast('Here is your toast.');
+
+  
   return (
-    <ul className={some.list}>
-      {friends.map((friend) => (
-        <li className={some.item} key={friend.id}>
-          <FriendListItem
-            avatar={friend.avatar}
-            name={friend.name}
-            isOnline={friend.isOnline}
-          />
-        </li>
-      ))}
-    </ul>
+    <header>
+      <form>
+        <input
+          type="text"
+          autocomplete="off"
+          autofocus
+          placeholder="Search images and photos"
+        />
+        <button type="submit">Search</button>
+        <Toaster />
+      </form>
+    </header>
   );
 };
 
-export default FriendList;
+export default SearchBar;

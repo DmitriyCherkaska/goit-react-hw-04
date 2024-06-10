@@ -1,15 +1,19 @@
-import some from "./FriendListItem.module.css";
+import { Audio } from 'react-loader-spinner'
+;<Audio
+  height="80"
+  width="80"
+  radius="9"
+  color="green"
+  ariaLabel="loading"
+  wrapperStyle
+  wrapperClass
+/>
 
-const FriendListItem = ({ avatar, name, isOnline }) => {
+const Loader = () => {
   return (
-    <div>
-      <img src={avatar} alt="Avatar" width="90" />
-      <p className={some.name}>{name}</p>
-      <p className={some.status} style={{ color: isOnline ? "green" : "red" }}>
-        {isOnline ? "Online" : "Offline"}
-      </p>
-    </div>
-  );
-};
 
-export default FriendListItem;
+    <div>Loader</div>
+  )
+}
+
+export default Loader;

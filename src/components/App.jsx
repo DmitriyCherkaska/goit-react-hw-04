@@ -55,7 +55,7 @@ const App = () => {
     if (searchTerm !== '') {
       fetchImages();
     }
-  }, searchTerm, page);
+  }, [fetchImages, searchTerm], page);
 
   return (
     <ToastProvider>

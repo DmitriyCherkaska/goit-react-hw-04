@@ -1,5 +1,5 @@
+// import { Toaster } from "react-hot-toast";
 import { useState, useEffect } from "react";
-import { Toaster } from "react-hot-toast";
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
@@ -73,24 +73,20 @@ const App = () => {
   }, [searchTerm, page]);
 
   return (
-    <>
-      <Toaster>
-        <div>
-          <SearchBar onSubmit={handleSubmit} />
-          {loading && <Loader />}
-          {error && <ErrorMessage />}
-          <ImageGallery images={images} onImageClick={handleImageClick} />
-          {!loading && images.length > 0 && (
-            <LoadMoreBtn onLoadMore={handleLoadMore} />
-          )}
-          <ImageModal
-            isOpen={modalIsOpen}
-            image={selectedImage}
-            closeModal={closeModal}
-          />
-        </div>
-      </Toaster>
-    </>
+    <div>
+      <SearchBar onSubmit={handleSubmit} />
+      {loading && <Loader />}
+      {error && <ErrorMessage />}
+      <ImageGallery images={images} onImageClick={handleImageClick} />
+      {!loading && images.length > 0 && (
+        <LoadMoreBtn onLoadMore={handleLoadMore} />
+      )}
+      <ImageModal
+        isOpen={modalIsOpen}
+        image={selectedImage}
+        closeModal={closeModal}
+      />
+    </div>
   );
 };
 

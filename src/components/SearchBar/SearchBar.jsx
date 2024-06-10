@@ -1,21 +1,22 @@
-import { Toaster } from "react-hot-toast";
-import { useToasts } from 'react-toast-notifications';
-import { useState } from 'react';
-// import some from "./FriendList.module.css";
+// import { Toaster } from "react-hot-toast";
+// import { useToasts } from 'react';
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const SearchBar = ({ onSubmit }) => {
-  const { addToast } = useToasts();
+  console.log("Привет, мир!");
+
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm === '') {
-      addToast('Please enter a search term', { appearance: 'error' });
+    if (searchTerm === "") {
+      toast.error("Please, enter a search term");
     } else {
       onSubmit(searchTerm);
     }
   };
-  
+
   return (
     <header>
       <form onSubmit={handleSubmit}>
@@ -28,7 +29,6 @@ const SearchBar = ({ onSubmit }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button type="submit">Search</button>
-        <Toaster />
       </form>
     </header>
   );

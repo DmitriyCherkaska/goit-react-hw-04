@@ -2,7 +2,7 @@
 
 const ErrorMessage = () => {
   return (
-    <div>Error...</div>
+    <div>Sorry, an error occurred while fetching images.</div>
   )
 }
 

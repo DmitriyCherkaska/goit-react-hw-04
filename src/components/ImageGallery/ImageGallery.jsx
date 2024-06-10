@@ -1,15 +1,11 @@
 // import some from "./Profile.module.css";
+import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = () => {
+const ImageGallery = ({images}) => {
   
   return (
     <ul>
-      {/* Набір елементів списку із зображеннями */}
-      <li>
-        <div>
-          <img src="" alt="" />
-        </div>
-      </li>
+      {images.map((image, index) => (<ImageCard key={index} image={image} />))}
     </ul>
   );
 };

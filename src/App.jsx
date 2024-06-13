@@ -1,12 +1,12 @@
-import toast from "react-hot-toast";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import SearchBar from "./components/SearchBar";
-import ImageGallery from "./components/ImageGallery";
-import Loader from "./components/Loader";
-import ErrorMessage from "./components/ErrorMessage";
-import LoadMoreBtn from "./components/LoadMoreBtn";
-import ImageModal from "./components/ImageModal";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
+import fetchImagesApi from "./api/articles-api.js";
+import QueryNotFound from "./components/QueryNotFound/QueryNotFound";
 import "./App.css";
 
 const App = () => {
@@ -19,40 +19,33 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const API_URL = "nBjDx3M3zD2WrpPhfkSHVh1YXawb-uZYOaY5iVd1jYc";
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const fetchImages = async (searchTerm, page) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`https://api.unsplash.com/photos/`, {
-        params: {
-          query: searchTerm,
-          page,
-        },
-        headers: {
-          Authorization: `Client-ID ${API_URL}`,
-        },
-      });
-      const data = response.data;
-      if (Array.isArray(data.results)) {
-        setImages((prevImages) => [...prevImages, ...data.results]);
-      } else {
-        console.error("Error: data.results is not an array");
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const { results, total_pages } = await fetchImagesApi(searchTerm, page);
+        setImages((prevImages) => [...prevImages, ...results]);
+        results.length === 0 && setIsEmpty(true);
+
+        setTotalPages(total_pages);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError(error);
-      toast.error(`Error: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+    searchTerm && fetchImages();
+  }, [searchTerm, page]);
 
   const handleSubmit = (searchTerm) => {
     setImages([]);
     setPage(1);
     setSearchTerm(searchTerm);
-    fetchImages(searchTerm, 1);
+    setIsEmpty(false);
   };
 
   const handleLoadMore = () => {
@@ -69,12 +62,6 @@ const App = () => {
     setModalIsOpen(false);
   };
 
-  useEffect(() => {
-    if (searchTerm !== "") {
-      fetchImages(searchTerm, page);
-    }
-  }, [searchTerm, page]);
-
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
@@ -83,8 +70,9 @@ const App = () => {
       ) : (
         <ImageGallery images={images} onImageClick={handleImageClick} />
       )}
+      {isEmpty && !loading && <QueryNotFound />}
       {error && <ErrorMessage message={error.message} />}
-      {!loading && images.length > 0 && (
+      {images.length > 0 && !loading && page < totalPages && (
         <LoadMoreBtn onLoadMore={handleLoadMore} />
       )}
       <ImageModal

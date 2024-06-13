@@ -10,10 +10,12 @@ const SearchBar = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const searchTerm = e.target.elements.text.value.trim();
     if (searchTerm === "") {
       toast.error("Please, enter a search term");
     } else {
       onSubmit(searchTerm);
+      setSearchTerm("");
     }
   };
 
@@ -22,6 +24,7 @@ const SearchBar = ({ onSubmit }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"

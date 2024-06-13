@@ -48,6 +48,7 @@ const App = () => {
       setLoading(false);
     }
   };
+
   const handleSubmit = (searchTerm) => {
     setImages([]);
     setPage(1);

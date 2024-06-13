@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-import ImageModal from "./components/ImageModal/ImageModal";
-import fetchImagesApi from "./api/articles-api.js";
-import QueryNotFound from "./components/QueryNotFound/QueryNotFound";
-import "./App.css";
+import { useState, useEffect } from 'react';
+import SearchBar from './components/SearchBar/SearchBar';
+import ImageGallery from './components/ImageGallery/ImageGallery';
+import Loader from './components/Loader/Loader';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
+import ImageModal from './components/ImageModal/ImageModal';
+import fetchImagesApi from './api/articles-api.js';
+import QueryNotFound from './components/QueryNotFound/QueryNotFound';
+import './App.css';
 
 const App = () => {
-  console.log("App component is rendered");
+  console.log('App component is rendered');
 
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -28,9 +28,8 @@ const App = () => {
         setLoading(true);
         setError(false);
         const { results, total_pages } = await fetchImagesApi(searchTerm, page);
-        setImages((prevImages) => [...prevImages, ...results]);
+        setImages(prevImages => [...prevImages, ...results]);
         results.length === 0 && setIsEmpty(true);
-
         setTotalPages(total_pages);
       } catch {
         setError(true);
@@ -43,17 +42,17 @@ const App = () => {
 
   useEffect(() => {
     if (modalIsOpen) {
-      document.body.classList.add("modal-open");
+      document.body.classList.add('modal-open');
     } else {
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove('modal-open');
     }
 
     return () => {
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove('modal-open');
     };
   }, [modalIsOpen]);
 
-  const handleSubmit = (searchTerm) => {
+  const handleSubmit = searchTerm => {
     setImages([]);
     setPage(1);
     setSearchTerm(searchTerm);
@@ -61,10 +60,10 @@ const App = () => {
   };
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage(prevPage => prevPage + 1);
   };
 
-  const handleImageClick = (selectedImage) => {
+  const handleImageClick = selectedImage => {
     setSelectedImage(selectedImage);
     setModalIsOpen(true);
   };

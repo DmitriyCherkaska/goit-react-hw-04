@@ -1,12 +1,8 @@
-const LoadMoreBtn = ({ onLoadMore, hasMoreImages }) => {
+const LoadMoreBtn = ({ onLoadMore }) => {
   return (
-    <>
-      {hasMoreImages && (
-        <button onClick={onLoadMore} className="load-more-btn">
-          Load more
-        </button>
-      )}
-    </>
+    <button type="click" onClick={onLoadMore}>
+      Load more
+    </button>
   );
 };
 

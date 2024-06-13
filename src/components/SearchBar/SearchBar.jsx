@@ -1,5 +1,3 @@
-// import { Toaster } from "react-hot-toast";
-// import { useToasts } from 'react';
 import toast from "react-hot-toast";
 import { useState } from "react";
 
@@ -15,7 +13,6 @@ const SearchBar = ({ onSubmit }) => {
       toast.error("Please, enter a search term");
     } else {
       onSubmit(searchTerm);
-      setSearchTerm("");
     }
   };
 

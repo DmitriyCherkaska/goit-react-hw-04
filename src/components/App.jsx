@@ -1,4 +1,5 @@
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
@@ -23,20 +24,18 @@ const App = () => {
   const fetchImages = async (searchTerm, page) => {
     setLoading(true);
     try {
-      const url = `https://api.unsplash.com/photos/?query=${searchTerm}&page=${page}`;
-      const response = await fetch(url, {
-        method: "GET",
+      const response = await axios.get(`https://api.unsplash.com/photos/`, {
+        params: {
+          query: searchTerm,
+          page,
+        },
         headers: {
           Authorization: `Client-ID ${API_URL}`,
         },
       });
-      console.log(response);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        if (Array.isArray(data.results)) {
-          setImages((prevImages) => [...prevImages, ...data.results]);
-        }
+      const data = response.data;
+      if (Array.isArray(data.results)) {
+        setImages((prevImages) => [...prevImages, ...data.results]);
       } else {
         console.error("Error: data.results is not an array");
         throw new Error(`Error ${response.status}: ${response.statusText}`);

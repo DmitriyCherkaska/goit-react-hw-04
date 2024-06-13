@@ -1,12 +1,12 @@
 import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = ({ images }) => {
-  console.log("ImageGallery component is rendered with images:", images);
-
+const ImageGallery = ({ images, onImageClick }) => {
   return (
     <ul>
-      {images.map((image, index) => (
-        <ImageCard key={index} image={image} />
+      {images.map((image) => (
+        <li key={image.id}>
+          <ImageCard image={image} onClick={onImageClick} />
+        </li>
       ))}
     </ul>
   );

@@ -1,8 +1,9 @@
-
-const ErrorMessage = () => {
+const ErrorMessage = ({ message }) => {
   return (
-    <div>Sorry, an error occurred while fetching images.</div>
+    <div>
+      <p>{message}</p>
+    </div>
   );
 };
 
-export default ErrorMessage
+export default ErrorMessage;

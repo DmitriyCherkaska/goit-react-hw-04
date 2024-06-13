@@ -41,6 +41,18 @@ const App = () => {
     searchTerm && fetchImages();
   }, [searchTerm, page]);
 
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, [modalIsOpen]);
+
   const handleSubmit = (searchTerm) => {
     setImages([]);
     setPage(1);
@@ -52,14 +64,14 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  const handleImageClick = (selectedImage) => {
+    setSelectedImage(selectedImage);
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedImage(null);
     setModalIsOpen(false);
+    setSelectedImage(null);
   };
 
   return (
@@ -77,7 +89,7 @@ const App = () => {
       )}
       <ImageModal
         isOpen={modalIsOpen}
-        image={selectedImage}
+        selectedImage={selectedImage}
         closeModal={closeModal}
       />
     </div>

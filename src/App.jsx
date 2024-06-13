@@ -22,6 +22,10 @@ const App = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -41,11 +45,7 @@ const App = () => {
   }, [searchTerm, page]);
 
   useEffect(() => {
-    if (modalIsOpen) {
-      document.body.classList.add('modal-open');
-    } else {
-      document.body.classList.remove('modal-open');
-    }
+    document.body.classList.toggle('modal-open', modalIsOpen);
 
     return () => {
       document.body.classList.remove('modal-open');
@@ -57,10 +57,6 @@ const App = () => {
     setPage(1);
     setSearchTerm(searchTerm);
     setIsEmpty(false);
-  };
-
-  const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
   };
 
   const handleImageClick = selectedImage => {

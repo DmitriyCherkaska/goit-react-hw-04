@@ -75,7 +75,7 @@ const App = () => {
 
   return (
     <div>
-      <SearchBar onSubmit={handleSubmit} />
+      <SearchBar value={searchTerm} submit={handleSubmit} />
       {loading ? (
         <Loader />
       ) : (
